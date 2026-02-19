@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CalculatorTabs from "../CalculatorTabs";
-  import { useEffect } from 'react';
+import { useEffect } from 'react';
 
 export default function Repayment() {
     const [showInterestRate, setShowInterestRate] = useState(false);
@@ -21,12 +21,12 @@ export default function Repayment() {
 
     console.log(initialState, 'initialState');
     const [output, setOutput] = useState(null);
-    
+
     function getInterestOnlyYears(type) {
-      if (type.startsWith("io-")) {
-      return Number(type.split("-")[1]);
-      }
-    return 0; 
+        if (type.startsWith("io-")) {
+            return Number(type.split("-")[1]);
+        }
+        return 0;
     }
 
 
@@ -34,56 +34,56 @@ export default function Repayment() {
 
 
 
-useEffect(() => {
-    const loanAmount = Number(initialState.loanAmount);
-    const termYears = Number(initialState.term);
+    useEffect(() => {
+        const loanAmount = Number(initialState.loanAmount);
+        const termYears = Number(initialState.term);
 
-    const interestRate = showInterestRate 
-        ? Number(initialState.interestRate) 
-        : Number(initialState.principleAndInterestType);
+        const interestRate = showInterestRate
+            ? Number(initialState.interestRate)
+            : Number(initialState.principleAndInterestType);
 
-    if (loanAmount > 0 && termYears > 0 && interestRate > 0) {
-        const monthlyRate = interestRate / 100 / 12;
-        const totalMonths = termYears * 12;
- 
-        const interestOnlyYears = getInterestOnlyYears(initialState.repaymentType);
-        const interestOnlyMonths = interestOnlyYears * 12;
-        const remainingMonths = totalMonths - interestOnlyMonths;
+        if (loanAmount > 0 && termYears > 0 && interestRate > 0) {
+            const monthlyRate = interestRate / 100 / 12;
+            const totalMonths = termYears * 12;
+
+            const interestOnlyYears = getInterestOnlyYears(initialState.repaymentType);
+            const interestOnlyMonths = interestOnlyYears * 12;
+            const remainingMonths = totalMonths - interestOnlyMonths;
 
 
-        const interestOnlyMonthly = loanAmount * monthlyRate;
+            const interestOnlyMonthly = loanAmount * monthlyRate;
 
-        let principleAndInterestMonthly = 0;
-        if (remainingMonths > 0) {
-            const commonFactor = Math.pow(1 + monthlyRate, remainingMonths);
-            principleAndInterestMonthly = (loanAmount * monthlyRate * commonFactor) / (commonFactor - 1);
+            let principleAndInterestMonthly = 0;
+            if (remainingMonths > 0) {
+                const commonFactor = Math.pow(1 + monthlyRate, remainingMonths);
+                principleAndInterestMonthly = (loanAmount * monthlyRate * commonFactor) / (commonFactor - 1);
+            } else {
+
+                principleAndInterestMonthly = 0;
+            }
+
+
+            const totalLoanRepayment = (interestOnlyMonthly * interestOnlyMonths) + (principleAndInterestMonthly * remainingMonths);
+            const totalInterestCharged = totalLoanRepayment - loanAmount;
+
+            setOutput({
+                interestOnlyMonthly: Number(interestOnlyMonthly.toFixed(2)),
+                principleAndInterestMonthly: Number(principleAndInterestMonthly.toFixed(0)),
+                variableRate: Number(interestRate.toFixed(2)),
+                comparisonRate: Number((interestRate + 0.26).toFixed(2)), // Standard estimation
+                totalLoanRepayment: Number(totalLoanRepayment.toFixed(0)),
+                totalInterestCharged: Number(totalInterestCharged.toFixed(0)),
+            });
+
+            setIsVisible(true);
         } else {
-      
-            principleAndInterestMonthly = 0;
+
+            setIsVisible(false);
         }
 
-       
-        const totalLoanRepayment = (interestOnlyMonthly * interestOnlyMonths) + (principleAndInterestMonthly * remainingMonths);
-        const totalInterestCharged = totalLoanRepayment - loanAmount;
+    }, [initialState, showInterestRate]);
 
-        setOutput({
-            interestOnlyMonthly: Number(interestOnlyMonthly.toFixed(2)),
-            principleAndInterestMonthly: Number(principleAndInterestMonthly.toFixed(0)),
-            variableRate: Number(interestRate.toFixed(2)),
-            comparisonRate: Number((interestRate + 0.26).toFixed(2)), // Standard estimation
-            totalLoanRepayment: Number(totalLoanRepayment.toFixed(0)),
-            totalInterestCharged: Number(totalInterestCharged.toFixed(0)),
-        });
 
-        setIsVisible(true);
-    } else {
-       
-        setIsVisible(false);
-    }
-
-}, [initialState, showInterestRate]);
-
-        
     return (
         <div className="max-w-6xl mx-auto px-6 py-10">
             <div >
@@ -110,7 +110,7 @@ useEffect(() => {
 
                                 <input
                                     name="loanAmount"
-                                    
+
                                     onChange={handleChange}
                                     type="number"
                                     placeholder="0"
@@ -147,8 +147,8 @@ useEffect(() => {
                                     Repayment type
                                 </label>
                                 <select className="w-full border p-2 rounded"
-                                 value={initialState.repaymentType}
-                                 onChange={handleChange} name="repaymentType">
+                                    value={initialState.repaymentType}
+                                    onChange={handleChange} name="repaymentType">
                                     <option value="pi">Principal and interest</option>
                                     <option value="io-1">Interest only 1 year</option>
                                     <option value="io-2">Interest only 2 year</option>
@@ -165,41 +165,41 @@ useEffect(() => {
                                         <label className="block text-sm text-gray-500 mb-1">
                                             With a
                                         </label>
-                                        <select className="w-full border p-2 rounded mb-2" 
-                                        vlaue={initialState.principleAndInterestType}
-                                        onChange={handleChange} 
-                                        name="principleAndInterestType">
-                                            
+                                        <select className="w-full border p-2 rounded mb-2"
+                                            vlaue={initialState.principleAndInterestType}
+                                            onChange={handleChange}
+                                            name="principleAndInterestType">
+
                                             {initialState.repaymentType === 'pi' ? (
                                                 <>
-                                            <option value="5.59">5.59% p.a. Simple Home Loan - Variable Rate LVR 60% or below</option>
-                                            <option value="5.64">5.64% p.a. Simple Home Loan - Variable Rate LVR 60.01% to 70%</option>
-                                            <option value="5.74">5.74% p.a. Simple Home Loan - Variable Rate LVR 70.01% to 80%</option>
-                                            <option value="6.04">6.04% p.a. Simple Home Loan - Variable Rate LVR 80.01% to 90%</option>
-                                            <option value="6.99">6.99% p.a. Simple Home Loan - Variable Rate LVR 90.01% to 95%</option>
-                                            <option value="8.05">8.05% p.a. Standard Variable Rate Home Loan LVR 60% or below</option>
-                                            <option value="6.09">6.09% p.a. 1 Year Fixed Rate Home Loan</option>
-                                            <option value="5.94">5.94% p.a. 2 Year Fixed Rate Home Loan</option>
-                                            <option value="6.19">6.19% p.a. 3 Year Fixed Rate Home Loan</option>
-                                            <option value="6.24">6.24% p.a. 4 Year Fixed Rate Home Loan</option>
-                                        </>
-                                            ):(
-                                                <>
-                                                <option value="6.08">6.08% p.a. Simple Home Loan - Variable Rate LVR 60% or below</option>
-                                                <option value="6.13">6.13% pia. Simple Home Loan - Variable Rate LVR 60.01% to 70%</option>
-                                                <option value="6.23">6.23% p.a. Simple Home Loan - Variable Rate LVR 70.01% to 80%</option>
-                                                <option value="8.54">8.54% p.a. Standard Variable Rate Home Loan LVR 60% or below</option>
-                                                <option value="8.54">8.54% pa Standard Variable Rate Home Loan LVR 60.01% to 70%</option>
-                                                <option value="8.54">8.54% p.a. Standard Variable Rate Home Loan LVFR 70.01% to 80%</option>
-                                                <option value="6.49">6.49% p.a. 1 Year Fixed Rate Home Loan</option>
-                                                <option value="6.34">6.34% p.a. 2 Year Fixed Rate Home Loan</option>
-                                                <option value="6.64">6.64% p.a. 3 Year Fixed Rate Home Loan</option>
-                                                <option value="6.69">6.69% p.a. 4 Year Fixed Rate Home Loan</option>
-                                                <option value="6.79">6.79% pa: 5 Year Fixed Rate Home Loan</option>
-                                               
+                                                    <option value="5.59">5.59% p.a. Simple Home Loan - Variable Rate LVR 60% or below</option>
+                                                    <option value="5.64">5.64% p.a. Simple Home Loan - Variable Rate LVR 60.01% to 70%</option>
+                                                    <option value="5.74">5.74% p.a. Simple Home Loan - Variable Rate LVR 70.01% to 80%</option>
+                                                    <option value="6.04">6.04% p.a. Simple Home Loan - Variable Rate LVR 80.01% to 90%</option>
+                                                    <option value="6.99">6.99% p.a. Simple Home Loan - Variable Rate LVR 90.01% to 95%</option>
+                                                    <option value="8.05">8.05% p.a. Standard Variable Rate Home Loan LVR 60% or below</option>
+                                                    <option value="6.09">6.09% p.a. 1 Year Fixed Rate Home Loan</option>
+                                                    <option value="5.94">5.94% p.a. 2 Year Fixed Rate Home Loan</option>
+                                                    <option value="6.19">6.19% p.a. 3 Year Fixed Rate Home Loan</option>
+                                                    <option value="6.24">6.24% p.a. 4 Year Fixed Rate Home Loan</option>
                                                 </>
-                                                )}
-                                                </select>
+                                            ) : (
+                                                <>
+                                                    <option value="6.08">6.08% p.a. Simple Home Loan - Variable Rate LVR 60% or below</option>
+                                                    <option value="6.13">6.13% pia. Simple Home Loan - Variable Rate LVR 60.01% to 70%</option>
+                                                    <option value="6.23">6.23% p.a. Simple Home Loan - Variable Rate LVR 70.01% to 80%</option>
+                                                    <option value="8.54">8.54% p.a. Standard Variable Rate Home Loan LVR 60% or below</option>
+                                                    <option value="8.54">8.54% pa Standard Variable Rate Home Loan LVR 60.01% to 70%</option>
+                                                    <option value="8.54">8.54% p.a. Standard Variable Rate Home Loan LVFR 70.01% to 80%</option>
+                                                    <option value="6.49">6.49% p.a. 1 Year Fixed Rate Home Loan</option>
+                                                    <option value="6.34">6.34% p.a. 2 Year Fixed Rate Home Loan</option>
+                                                    <option value="6.64">6.64% p.a. 3 Year Fixed Rate Home Loan</option>
+                                                    <option value="6.69">6.69% p.a. 4 Year Fixed Rate Home Loan</option>
+                                                    <option value="6.79">6.79% pa: 5 Year Fixed Rate Home Loan</option>
+
+                                                </>
+                                            )}
+                                        </select>
                                     </div>
 
                                     <button
@@ -236,7 +236,7 @@ useEffect(() => {
                                 </div>
                             )}
                         </div>
-                        
+
                     </div>
                 </form>
             </div>

@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 
 const tabs = [
-  { name: "Borrowing", path: "/borrowing" },
-  { name: "Repayment", path: "/repayment" },
-  { name: "Stamp", path: "/stamp" },
-  { name: "Refinance", path: "/refinance" },
+  { name: "Borrowing  Calculator", path: "/borrowing" },
+  { name: "Repayment Calculator", path: "/repayment" },
+  { name: "Stamp duty Calculator", path: "/stamp" },
+  { name: "Refinance Calculator", path: "/refinance" },
 ];
 
 export default function CalculatorTabs() {
@@ -16,11 +16,10 @@ export default function CalculatorTabs() {
           to={tab.path}
           className={({ isActive }) =>
             `flex-1 text-center py-3 font-medium border-r last:border-r-0
-             ${
-               isActive
-                 ? "bg-black text-white"
-                 : "bg-white text-black hover:bg-gray-100"
-             }`
+             ${isActive
+              ? "bg-black text-white"
+              : "bg-white text-black hover:bg-gray-100"
+            }`
           }
         >
           {tab.name}

@@ -33,7 +33,7 @@ export default function Stamp() {
     SetInitialState(prev => ({ ...prev, [name]: value }))
   }
 
-useEffect(() => {
+  useEffect(() => {
     const savings = Number(initialState.savings);
     const propertyWorth = Number(initialState.propertyWorth);
     const baseCost = Number(initialState.lookingFor);
@@ -142,7 +142,7 @@ useEffect(() => {
 
               </div>
             </div>
-          
+
           </div>
         </form>
         {isVisible &&
@@ -150,112 +150,112 @@ useEffect(() => {
           <div>
             {output &&
               <h3 className="text-4xl font-light justify-center text-center m-5 mt-5">Your upfront costs would be ${output.upfrontCosts}</h3>}
-            
 
-<div className="w-full max-w-5xl mx-auto">
-  <div className="grid grid-cols-3 sm:grid-cols-5 items-center">
 
-    <div className="h-[160px] sm:h-[220px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Tooltip />
-          <Pie
-            data={savingsData}
-            dataKey="value"
-            cx="50%"
-            cy="50%"
-            innerRadius="60%"
-            outerRadius="75%"
-            startAngle={90}
-            endAngle={-270}
-          >
-            <Cell fill="#9ca3af" />
-            <Cell fill="#e5e7eb" />
-          </Pie>
+            <div className="w-full max-w-5xl mx-auto">
+              <div className="grid grid-cols-3 sm:grid-cols-5 items-center">
 
-          <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
-            <tspan fontSize={18} fontWeight="600">
-              ${output?.savings?.toLocaleString() || 0}
-            </tspan>
-            <tspan x="50%" dy="20" fontSize={12} fill="#6b7280">
-              Savings
-            </tspan>
-          </text>
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
+                <div className="h-[160px] sm:h-[220px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Tooltip />
+                      <Pie
+                        data={savingsData}
+                        dataKey="value"
+                        cx="50%"
+                        cy="50%"
+                        innerRadius="60%"
+                        outerRadius="75%"
+                        startAngle={90}
+                        endAngle={-270}
+                      >
+                        <Cell fill="#9ca3af" />
+                        <Cell fill="#e5e7eb" />
+                      </Pie>
 
- 
-    <div className="flex justify-center">
-      <img src="src/assets/minus.png" className="w-6 h-6 sm:w-10 sm:h-10" />
-    </div>
+                      <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
+                        <tspan fontSize={18} fontWeight="600">
+                          ${output?.savings?.toLocaleString() || 0}
+                        </tspan>
+                        <tspan x="50%" dy="20" fontSize={12} fill="#6b7280">
+                          Savings
+                        </tspan>
+                      </text>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
 
-    <div className="h-[160px] sm:h-[220px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Tooltip />
-          <Pie
-            data={upfrontData}
-            dataKey="value"
-            cx="50%"
-            cy="50%"
-            innerRadius="60%"
-            outerRadius="75%"
-            startAngle={90}
-            endAngle={-270}
-          >
-            <Cell fill="#fad21f" />
-            <Cell fill="#e5e7eb" />
-          </Pie>
 
-          <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
-            <tspan fontSize={18} fontWeight="600">
-              ${output?.upfrontCosts?.toLocaleString() || 0}
-            </tspan>
-            <tspan x="50%" dy="20" fontSize={12} fill="#6b7280">
-              Upfront costs
-            </tspan>
-          </text>
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
+                <div className="flex justify-center">
+                  <img src="src/assets/minus.png" className="w-6 h-6 sm:w-10 sm:h-10" />
+                </div>
 
-    <div className="flex justify-center">
-      <img src="src/assets/equaltojpg.jpg" className="w-6 h-6 sm:w-10 sm:h-10" />
-    </div>
+                <div className="h-[160px] sm:h-[220px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Tooltip />
+                      <Pie
+                        data={upfrontData}
+                        dataKey="value"
+                        cx="50%"
+                        cy="50%"
+                        innerRadius="60%"
+                        outerRadius="75%"
+                        startAngle={90}
+                        endAngle={-270}
+                      >
+                        <Cell fill="#fad21f" />
+                        <Cell fill="#e5e7eb" />
+                      </Pie>
 
-    <div className="h-[160px] sm:h-[220px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Tooltip />
-          <Pie
-            data={leftData}
-            dataKey="value"
-            cx="50%"
-            cy="50%"
-            innerRadius="60%"
-            outerRadius="75%"
-            startAngle={90}
-            endAngle={-270}
-          >
-            <Cell fill="#179bc4" />
-            <Cell fill="#e5e7eb" />
-          </Pie>
+                      <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
+                        <tspan fontSize={18} fontWeight="600">
+                          ${output?.upfrontCosts?.toLocaleString() || 0}
+                        </tspan>
+                        <tspan x="50%" dy="20" fontSize={12} fill="#6b7280">
+                          Upfront costs
+                        </tspan>
+                      </text>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
 
-          <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
-            <tspan fontSize={18} fontWeight="600">
-              ${output?.savingsLeft?.toLocaleString() || 0}
-            </tspan>
-            <tspan x="50%" dy="20" fontSize={12} fill="#6b7280">
-              Savings left
-            </tspan>
-          </text>
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
+                <div className="flex justify-center">
+                  <img src="src/assets/equaltojpg.jpg" className="w-6 h-6 sm:w-10 sm:h-10" />
+                </div>
 
-  </div>
-</div>
+                <div className="h-[160px] sm:h-[220px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Tooltip />
+                      <Pie
+                        data={leftData}
+                        dataKey="value"
+                        cx="50%"
+                        cy="50%"
+                        innerRadius="60%"
+                        outerRadius="75%"
+                        startAngle={90}
+                        endAngle={-270}
+                      >
+                        <Cell fill="#179bc4" />
+                        <Cell fill="#e5e7eb" />
+                      </Pie>
+
+                      <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
+                        <tspan fontSize={18} fontWeight="600">
+                          ${output?.savingsLeft?.toLocaleString() || 0}
+                        </tspan>
+                        <tspan x="50%" dy="20" fontSize={12} fill="#6b7280">
+                          Savings left
+                        </tspan>
+                      </text>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+
+              </div>
+            </div>
 
 
             <div>

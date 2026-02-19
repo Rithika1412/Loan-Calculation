@@ -9,8 +9,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Default route */}
-        <Route path="/" element={<Navigate to="/repayment" />} />
+      
+        <Route path="/" element={<Navigate to="/borrowing" />} />
 
         <Route path="/borrowing" element={<Borrowing />} />
         <Route path="/repayment" element={<Repayment />} />
